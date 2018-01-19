@@ -83,47 +83,6 @@ export abstract class SqlOpsFeature<T> implements DynamicFeature<T> {
 	}
 }
 
-class CapabilitiesFeature extends SqlOpsFeature<undefined> {
-
-	private static readonly messagesTypes: RPCMessageType[] = [
-		protocol.CapabiltiesDiscoveryRequest.type
-	];
-
-	constructor(client: SqlOpsDataClient) {
-		super(client, CapabilitiesFeature.messagesTypes);
-	}
-
-	public fillClientCapabilities(capabilities: protocol.ClientCapabilities): void {
-		ensure(ensure(capabilities, 'connection')!, 'capabilities')!.dynamicRegistration = true;
-	}
-
-	public initialize(capabilities: ServerCapabilities): void {
-		this.register(this.messages, {
-			id: UUID.generateUuid(),
-			registerOptions: undefined
-		});
-	}
-
-	protected registerProvider(options: undefined): Disposable {
-		const client = this._client;
-
-		let getServerCapabilities = (cap: sqlops.DataProtocolClientCapabilities): Thenable<sqlops.DataProtocolServerCapabilities> => {
-			return client.sendRequest(protocol.CapabiltiesDiscoveryRequest.type, cap).then(
-				r => r.capabilities,
-				e => {
-					client.logFailedRequest(protocol.CapabiltiesDiscoveryRequest.type, e);
-					return Promise.resolve(undefined);
-				}
-			);
-		};
-
-		return sqlops.dataprotocol.registerCapabilitiesServiceProvider({
-			providerId: client.providerId,
-			getServerCapabilities
-		});
-	}
-}
-
 class ConnectionFeature extends SqlOpsFeature<undefined> {
 
 	private static readonly messagesTypes: RPCMessageType[] = [
@@ -1297,7 +1256,6 @@ export class SqlOpsDataClient extends LanguageClient {
 
 	private registerDataFeatures() {
 		this.registerFeature(new ConnectionFeature(this));
-		this.registerFeature(new CapabilitiesFeature(this));
 		this.registerFeature(new QueryFeature(this));
 		this.registerFeature(new MetadataFeature(this));
 		this.registerFeature(new AdminServicesFeature(this));

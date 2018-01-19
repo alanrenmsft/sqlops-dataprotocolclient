@@ -275,10 +275,6 @@ export class CapabiltiesDiscoveryParams {
 	public hostVersion: string;
 }
 
-export namespace CapabiltiesDiscoveryRequest {
-	export const type = new RequestType<CapabiltiesDiscoveryParams, types.CapabiltiesDiscoveryResult, void, void>('capabilities/list');
-}
-
 // Query Execution ================================================================================
 // ------------------------------- < Query Cancellation Request > ------------------------------------
 export namespace QueryCancelRequest {

@@ -251,10 +251,6 @@ export class ServerInfo {
 	public osVersion: string;
 }
 
-export class CapabiltiesDiscoveryResult {
-	public capabilities: sqlops.DataProtocolServerCapabilities;
-}
-
 // Admin Services types
 
 export interface CreateDatabaseParams {

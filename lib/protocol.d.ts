@@ -241,7 +241,7 @@ export declare namespace QueryExecuteBatchCompleteNotification {
 export declare namespace QueryExecuteResultSetAvailableNotification {
     const type: NotificationType<sqlops.QueryExecuteResultSetNotificationParams, void>;
 }
-export declare namespace QueryExecuteResultSetUpdateNotification {
+export declare namespace QueryExecuteResultSetUpdatedNotification {
     const type: NotificationType<sqlops.QueryExecuteResultSetNotificationParams, void>;
 }
 export declare namespace QueryExecuteMessageNotification {

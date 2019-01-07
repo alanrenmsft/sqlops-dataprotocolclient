@@ -22,7 +22,7 @@ function ensure<T, K extends keyof T>(target: T, key: K): T[K] {
 }
 
 export interface ISqlOpsFeature {
-	new (client: SqlOpsDataClient);
+	new(client: SqlOpsDataClient);
 }
 
 export interface ClientOptions extends VSLanguageClientOptions {
@@ -1345,7 +1345,20 @@ export class ProfilerFeature extends SqlOpsFeature<undefined> {
 			return client.sendRequest(protocol.FilterSessionRequest.type, params).then(
 				r => true,
 				e => {
-					client.logFailedRequest(protocol.PauseProfilingRequest.type, e);
+					client.logFailedRequest(protocol.FilterSessionRequest.type, e);
+					return Promise.reject(e);
+				}
+			);
+		};
+
+		let clearSessionFilter = (ownerUri: string): Thenable<boolean> => {
+			let params: types.ClearSessionFilterParams = {
+				ownerUri: ownerUri
+			};
+			return client.sendRequest(protocol.ClearSessionFilterRequest.type, params).then(
+				r => true,
+				e => {
+					client.logFailedRequest(protocol.ClearSessionFilterRequest.type, e);
 					return Promise.reject(e);
 				}
 			);

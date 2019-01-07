@@ -685,6 +685,10 @@ export namespace FilterSessionRequest {
 	export const type = new RequestType<types.FilterSessionParams, types.FilterSessionResponse, void, void>('profiler/filter');
 }
 
+export namespace ClearSessionFilterRequest {
+	export const type = new RequestType<types.ClearSessionFilterParams, types.ClearSessionFilterResponse, void, void>('profiler/clearfilter');
+}
+
 export namespace ProfilerEventsAvailableNotification {
 	export const type = new NotificationType<types.ProfilerEventsAvailableParams, void>('profiler/eventsavailable');
 }

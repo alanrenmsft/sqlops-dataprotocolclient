@@ -923,7 +923,16 @@ export interface FilterSessionParams{
 	filter: sqlops.ProfilerFilter;
 }
 
+export interface ClearSessionFilterParams{
+	/**
+	 * Session Owner URI
+	 */
+	ownerUri: string;
+}
+
 export interface FilterSessionResponse {}
+
+export interface ClearSessionFilterResponse {}
 
 /**
  * Profiler Event

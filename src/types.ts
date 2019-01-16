@@ -855,7 +855,7 @@ export interface CreateXEventSessionParams {
 	template: ProfilerSessionTemplate;
 }
 
-export interface CreateXEventSessionResponse {}
+export interface CreateXEventSessionResponse { }
 
 /**
  * Parameters to start a profiler session
@@ -872,7 +872,7 @@ export interface StartProfilingParams {
 	sessionName: string;
 }
 
-export interface StartProfilingResponse {}
+export interface StartProfilingResponse { }
 
 /**
  * Parameters to stop a profiler session
@@ -884,7 +884,7 @@ export interface StopProfilingParams {
 	ownerUri: string;
 }
 
-export interface StopProfilingResponse {}
+export interface StopProfilingResponse { }
 
 /**
  * Parameters to pause a profiler session
@@ -896,7 +896,7 @@ export interface PauseProfilingParams {
 	ownerUri: string;
 }
 
-export interface PauseProfilingResponse {}
+export interface PauseProfilingResponse { }
 
 /**
  * Parameters to get a list of XEvent sessions
@@ -915,24 +915,14 @@ export interface GetXEventSessionsResponse {
 	sessions: string[];
 }
 
-export interface FilterSessionParams{
-	/**
-	 * Session Owner URI
-	 */
-	ownerUri: string;
-	filter: sqlops.ProfilerFilter;
-}
-
-export interface ClearSessionFilterParams{
+export interface DisconnectSessionParams {
 	/**
 	 * Session Owner URI
 	 */
 	ownerUri: string;
 }
 
-export interface FilterSessionResponse {}
-
-export interface ClearSessionFilterResponse {}
+export interface DisconnectSessionResponse { }
 
 /**
  * Profiler Event

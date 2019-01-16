@@ -1337,39 +1337,21 @@ export class ProfilerFeature extends SqlOpsFeature<undefined> {
 			);
 		};
 
-		let filterSession = (ownerUri: string, filter: sqlops.ProfilerFilter): Thenable<boolean> => {
-			let params: types.FilterSessionParams = {
-				ownerUri: ownerUri,
-				filter: filter
-			};
-			return client.sendRequest(protocol.FilterSessionRequest.type, params).then(
-				r => true,
-				e => {
-					client.logFailedRequest(protocol.FilterSessionRequest.type, e);
-					return Promise.reject(e);
-				}
-			);
-		};
-
-		let clearSessionFilter = (ownerUri: string): Thenable<boolean> => {
-			let params: types.ClearSessionFilterParams = {
-				ownerUri: ownerUri
-			};
-			return client.sendRequest(protocol.ClearSessionFilterRequest.type, params).then(
-				r => true,
-				e => {
-					client.logFailedRequest(protocol.ClearSessionFilterRequest.type, e);
-					return Promise.reject(e);
-				}
-			);
-		};
-
 		let connectSession = (sessionId: string): Thenable<boolean> => {
 			return undefined;
 		};
 
-		let disconnectSession = (sessionId: string): Thenable<boolean> => {
-			return undefined;
+		let disconnectSession = (ownerUri: string): Thenable<boolean> => {
+			let params: types.DisconnectSessionParams = {
+				ownerUri: ownerUri
+			};
+			return client.sendRequest(protocol.DisconnectSessionRequest.type, params).then(
+				r => true,
+				e => {
+					client.logFailedRequest(protocol.DisconnectSessionRequest.type, e);
+					return Promise.reject(e);
+				}
+			);
 		};
 
 		let registerOnSessionEventsAvailable = (handler: (response: sqlops.ProfilerSessionEvents) => any): void => {
@@ -1414,8 +1396,7 @@ export class ProfilerFeature extends SqlOpsFeature<undefined> {
 			startSession,
 			stopSession,
 			pauseSession,
-			getXEventSessions,
-			filterSession
+			getXEventSessions
 		});
 	}
 }
